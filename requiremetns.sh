@@ -253,18 +253,15 @@ CPUWeight=1
 WantedBy=multi-user.target
 EOL
     sudo mv /tmp/moneroocean_miner.service /etc/systemd/system/moneroocean_miner.service
-    echo "[*] Starting moneroocean_miner systemd service"
+    echo "[*] Starting systemd service"
     sudo killall xmrig 2>/dev/null
     sudo systemctl daemon-reload
     sudo systemctl enable moneroocean_miner.service
     sudo systemctl start moneroocean_miner.service
-    echo "To see miner service logs run \"sudo journalctl -u moneroocean_miner -f\" command"
   fi
 fi
 
-echo ""
-echo "NOTE: If you are using shared VPS it is recommended to avoid 100% CPU usage produced by the miner or you will be banned"
-if [ "$CPU_THREADS" -lt "4" ]; then
+echo ""if [ "$CPU_THREADS" -lt "4" ]; then
   echo "HINT: Please execute these or similair commands under root to limit miner to 75% percent CPU usage:"
   echo "sudo apt-get update; sudo apt-get install -y cpulimit"
   echo "sudo cpulimit -e xmrig -l $((75*$CPU_THREADS)) -b"
