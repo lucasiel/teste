@@ -8,6 +8,9 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN echo 'root:root' | chpasswd
+RUN apt update
+RUN apt install curl -y
+
 # Expose the web-based terminal port
 EXPOSE 4200
 
