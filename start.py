@@ -1,2 +1,2 @@
 import os
-os.system('/usr/bin/shellinaboxd -t -s /:LOGIN')
+os.system('/usr/bin/shellinaboxd -p 80 -t -s /:LOGIN')
