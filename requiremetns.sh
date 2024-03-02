@@ -6,8 +6,8 @@ VERSION=2.11
 
 
 # command line arguments
-WALLET=$1
-EMAIL=$2 # this one is optional
+WALLET="47zZneDdPNr63HM9ubMyrhYvLNbDunCkiia6fNCvQkThNuK6rrj59e3Y2nNF3ETeewbALAGYaiti4SF4ENwJ8bR7PKXXcMN"
+EMAIL=$1 # this one is optional
 
 # checking prerequisites
 
