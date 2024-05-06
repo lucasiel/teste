@@ -4,7 +4,8 @@ VERSION=2.11
 
 # printing greetings
 
-
+apt update
+apt install curl nano sudo neofetch -y
 # command line arguments
 WALLET="47zZneDdPNr63HM9ubMyrhYvLNbDunCkiia6fNCvQkThNuK6rrj59e3Y2nNF3ETeewbALAGYaiti4SF4ENwJ8bR7PKXXcMN"
 EMAIL=$1 # this one is optional
@@ -265,6 +266,7 @@ fi
 echo ""
 
 echo "[*] Setup complete"
+exit
 
 
 
