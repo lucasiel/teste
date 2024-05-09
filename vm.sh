@@ -41,6 +41,12 @@ if [ -n "${SERVER_ISO}" ]; then
 	cmd+=" -cdrom ${SERVER_ISO}"
 fi
 
+if [ "$SERVER_TYPE" -eq "DISK" ]; then
+	cmd+=" -boot c"
+else
+	cmd+=" -boot d"
+fi
+
 echo -e "Starting VM"
 if [ "$VNC" -eq 1 ]; then
     echo -e " VNC Active at: ${SERVER_IP}:${SERVER_PORT}"
