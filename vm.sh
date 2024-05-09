@@ -41,7 +41,7 @@ if [ -n "${SERVER_ISO}" ]; then
 	cmd+=" -cdrom ${SERVER_ISO}"
 fi
 
-if [ "$SERVER_TYPE" -eq "DISK" ]; then
+if [ "$SERVER_TYPE" -eq "ISO" ]; then
 	cmd+=" -boot c"
 else
 	cmd+=" -boot d"
