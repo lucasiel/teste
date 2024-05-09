@@ -6,7 +6,7 @@ if [ "$VNC" -eq 1 ]; then
 	cmd+=" -vnc :$((SERVER_PORT - 5900)) -net user,hostfwd=tcp::3000-:3389"
 else
 	if [ "$SERVER_TYPE" -eq "Linux" ]; then
-    	mkdir -p shared
+    		mkdir -p shared
 		cmd+=" -virtfs local,path=shared,mount_tag=shared,security_model=none -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:22"
 	else 
 		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:3389"
