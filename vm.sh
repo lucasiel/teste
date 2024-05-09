@@ -6,7 +6,7 @@ if [ "$VNC" -eq 1 ]; then
 	cmd+=" -vnc :$((SERVER_PORT - 5900)) -net user,hostfwd=tcp::3000-:3389"
 else
 	if [ "$SERVER_TYPE" -eq "Linux" ]; then
-    		mkdir -p shared
+    	mkdir -p shared
 		cmd+=" -virtfs local,path=shared,mount_tag=shared,security_model=none -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:22"
 	else 
 		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:3389"
@@ -22,9 +22,9 @@ for range in "${port_ranges[@]}"; do
 done
 
 if [ -e "/dev/kvm" ]; then
-    cmd+=" -enable-kvm -cpu host -smp $(nproc)"
+    cmd+=" -enable-kvm -cpu host"
 else
-    cmd+=" -cpu max,+avx -smp $(nproc)"
+    cmd+=" -cpu max,+avx"
 fi
 
 if [ "$UEFI" -eq 1 ]; then
@@ -33,6 +33,8 @@ fi
 
 if [ -n "${SERVER_CPU}" ]; then
 	cmd+=" -smp ${SERVER_CPU}"
+else
+	cmd+=" -smp $(nproc)"
 fi
 
 if [ -n "${SERVER_ISO}" ]; then
