@@ -1,14 +1,13 @@
 #!/bin/bash
 
-cmd="qemu-system-x86_64 -drive file=${SERVER_IMAGE}.qcow2,format=qcow2 -virtfs local,path=shared,mount_tag=shared,security_model=none -m ${SERVER_MEMORY} -net nic,model=virtio"
-
-mkdir -p shared
+cmd="qemu-system-x86_64 -drive file=${SERVER_IMAGE}.qcow2,format=qcow2 -m ${SERVER_MEMORY} -net nic,model=virtio"
 
 if [ "$VNC" -eq 1 ]; then
 	cmd+=" -vnc :$((SERVER_PORT - 5900)) -net user,hostfwd=tcp::3000-:3389"
 else
 	if [ "$SERVER_TYPE" -eq "Linux" ]; then
-		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:22"
+    	mkdir -p shared
+		cmd+=" -virtfs local,path=shared,mount_tag=shared,security_model=none -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:22"
 	else 
 		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:3389"
 	fi
