@@ -36,6 +36,10 @@ if [ -n "${SERVER_CPU}" ]; then
 	cmd+=" -smp ${SERVER_CPU}"
 fi
 
+if [ -n "${SERVER_ISO}" ]; then
+	cmd+=" -cdrom ${SERVER_ISO}"
+fi
+
 echo -e "Starting VM"
 if [ "$VNC" -eq 1 ]; then
     echo -e " VNC Active at: ${SERVER_IP}:${SERVER_PORT}"
