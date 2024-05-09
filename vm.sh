@@ -1,8 +1,19 @@
 #!/bin/bash
 
-cmd="qemu-system-x86_64 -drive file=${SERVER_IMAGE}.qcow2,format=qcow2 -virtfs local,path=shared,mount_tag=shared,security_model=none -m ${SERVER_MEMORY} -net nic,model=virtio -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:22"
+cmd="qemu-system-x86_64 -drive file=${SERVER_IMAGE}.qcow2,format=qcow2 -virtfs local,path=shared,mount_tag=shared,security_model=none -m ${SERVER_MEMORY} -net nic,model=virtio"
 
 mkdir -p shared
+
+if [ "$VNC" -eq 1 ]; then
+	cmd+=" -vnc :${SERVER_PORT} -net user"
+else
+	if [ "$SERVER_TYPE" -eq "Linux" ]; then
+		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:22"
+	else 
+		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:3389"
+	fi
+fi
+
 IFS=','
 read -ra port_ranges <<< "${SERVER_APORTS}"
 for range in "${port_ranges[@]}"; do
@@ -17,8 +28,16 @@ else
     cmd+=" -cpu max,+avx -smp $(nproc)"
 fi
 
+if [ "$UEFI" -eq 1 ]; then
+    qemu_cmd+=" -bios /OVMF.fd"
+fi
+
 if [ -n "${SERVER_CPU}" ]; then
 	cmd+=" -smp ${SERVER_CPU}"
 fi
 
-eval "$cmd"
+if [ "$VNC" -eq 1 ]; then
+	eval "$cmd" > /dev/null 2>&1
+else
+	eval "$cmd"
+fi
