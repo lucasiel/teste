@@ -10,7 +10,7 @@ else
 	if [ "$SERVER_TYPE" -eq "Linux" ]; then
 		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:22"
 	else 
-		cmd+=" -nographic -net user,hostfwd=tcp::${SERVER_PORT}-:3389"
+		cmd+=" -net user,hostfwd=tcp::${SERVER_PORT}-:3389"
 	fi
 fi
 
