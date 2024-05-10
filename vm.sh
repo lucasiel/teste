@@ -42,9 +42,9 @@ if [ -n "${SERVER_ISO}" ]; then
 fi
 
 if [ "$SERVER_TYPE" -eq "ISO" ]; then
-	cmd+=" -boot c"
-else
 	cmd+=" -boot d"
+else
+	cmd+=" -boot c"
 fi
 
 echo -e "Starting VM"
