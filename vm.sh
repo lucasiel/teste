@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd /home/container
 cmd="qemu-system-x86_64 -drive file=${SERVER_IMAGE}.qcow2,format=qcow2 -m ${SERVER_MEMORY} -net nic,model=virtio"
 
 if [ "$VNC" -eq 1 ]; then
