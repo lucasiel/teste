@@ -32,7 +32,7 @@ if [ "$UEFI" -eq 1 ]; then
 fi
 
 if [ -n "${SERVER_CPU}" ]; then
-	cmd+=" -smp ${SERVER_CPU}"
+	cmd+=" -smp cores=${SERVER_CPU},threads=$((SERVER_CPU * 2))"
 else
 	cmd+=" -smp $(nproc)"
 fi
