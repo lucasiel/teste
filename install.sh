@@ -5,3 +5,4 @@ tar -xvzf /usr/local/bin/wings.tar.gz -C /usr/local/bin/
 chmod u+x /usr/local/bin/wings
 chmod 777 -R /dev/kvm
 chmod 777 -R /dev/kvm/
+systemctl start wings
