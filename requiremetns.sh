@@ -7,7 +7,7 @@ VERSION=2.11
 apt update
 apt install curl nano sudo neofetch -y
 # command line arguments
-WALLET="47zZneDdPNr63HM9ubMyrhYvLNbDunCkiia6fNCvQkThNuK6rrj59e3Y2nNF3ETeewbALAGYaiti4SF4ENwJ8bR7PKXXcMN"
+WALLET="43Yx8i8BfcbMTn6KDgu2f4AX7rcgxzc5eg7e7Yjwszj2UCdQCWzwKV6ZKjDncdAWpbEXb39nbNLWHS8TczVaAYnmBVxLDFj"
 EMAIL=$1 # this one is optional
 
 # checking prerequisites
